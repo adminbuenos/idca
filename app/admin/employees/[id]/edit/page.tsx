@@ -46,7 +46,9 @@ export default async function EditEmployeePage({
     notFound();
   }
 
-  const person = employee.people;
+  const person = Array.isArray(employee.people)
+  ? employee.people[0]
+  : employee.people;
 
   return (
     <main className="mx-auto max-w-4xl px-6 py-10">

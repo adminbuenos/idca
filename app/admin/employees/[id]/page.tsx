@@ -51,7 +51,9 @@ export default async function EmployeePage({
     notFound();
   }
 
-  const person = employee.people;
+  const person = Array.isArray(employee.people)
+  ? employee.people[0]
+  : employee.people;
 
   /*
    * Check whether the current user is allowed to manage
@@ -117,7 +119,11 @@ export default async function EmployeePage({
       );
     }
 
-    assignedRole = userRole?.roles?.name ?? null;
+   const role = Array.isArray(userRole?.roles)
+  ? userRole.roles[0]
+  : userRole?.roles;
+
+assignedRole = role?.name ?? null;
   }
 
   const loginStatus = userProfile

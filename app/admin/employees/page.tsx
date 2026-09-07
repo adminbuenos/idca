@@ -123,7 +123,9 @@ export default async function EmployeesPage() {
               <tbody className="divide-y divide-gray-100 bg-white">
                 {employees && employees.length > 0 ? (
                   employees.map((employee) => {
-                    const person = employee.people;
+                    const person = Array.isArray(employee.people)
+  ? employee.people[0]
+  : employee.people;
 
                     const name =
                       person?.display_name ||

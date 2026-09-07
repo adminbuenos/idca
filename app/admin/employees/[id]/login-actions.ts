@@ -7,18 +7,11 @@ import {
   canManageRoles,
   canManageUsers,
 } from "@/lib/auth/user-management";
-
-type CreateEmployeeLoginResult =
-  | {
-      success: true;
-    }
-  | {
-      success: false;
-      error: string;
-    };
+import type { CreateEmployeeLoginResult } from "./login/types";
 
 export async function createEmployeeLogin(
   employeeId: string,
+  _previousState: CreateEmployeeLoginResult,
   formData: FormData
 ): Promise<CreateEmployeeLoginResult> {
   const { supabase, user } = await requireAdmin();
@@ -59,7 +52,9 @@ export async function createEmployeeLogin(
     };
   }
 
-  const person = employee.people;
+ const person = Array.isArray(employee.people)
+  ? employee.people[0]
+  : employee.people;
 
   if (!person) {
     return {

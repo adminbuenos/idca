@@ -52,9 +52,13 @@ export async function requireAdmin() {
     redirect("/login");
   }
 
-  const hasAdminAccess = roles?.some((item) =>
-    ADMIN_ROLES.includes(item.roles?.name as AdminRole)
-  );
+ const hasAdminAccess = roles?.some((item) => {
+  const role = Array.isArray(item.roles)
+    ? item.roles[0]
+    : item.roles;
+
+  return ADMIN_ROLES.includes(role?.name as AdminRole);
+});
 
   if (!hasAdminAccess) {
     redirect("/login");

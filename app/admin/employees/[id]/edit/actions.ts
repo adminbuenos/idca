@@ -52,7 +52,9 @@ export async function updateEmployee(
   }
 
   const divisionId = existingEmployee.division_id;
-  const person = existingEmployee.people;
+ const person = Array.isArray(existingEmployee.people)
+  ? existingEmployee.people[0]
+  : existingEmployee.people;
 
   if (!person) {
     throw new Error("Employee person record was not found.");

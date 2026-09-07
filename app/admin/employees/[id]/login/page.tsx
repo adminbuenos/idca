@@ -6,7 +6,7 @@ import {
   canManageRoles,
   canManageUsers,
 } from "@/lib/auth/user-management";
-
+import LoginForm from "./login-form";
 import { createEmployeeLogin } from "../login-actions";
 
 type PageProps = {
@@ -50,7 +50,9 @@ export default async function CreateLoginPage({
     notFound();
   }
 
-  const person = employee.people;
+  const person = Array.isArray(employee.people)
+    ? employee.people[0]
+    : employee.people;
 
   if (!person) {
     notFound();
@@ -129,13 +131,14 @@ export default async function CreateLoginPage({
   }[] = [];
 
   if (userCanManageRoles) {
-    const { data: roleData, error: rolesError } = await supabase
-      .from("roles")
-      .select(`
-        id,
-        name
-      `)
-      .order("name");
+    const { data: roleData, error: rolesError } =
+      await supabase
+        .from("roles")
+        .select(`
+          id,
+          name
+        `)
+        .order("name");
 
     if (rolesError) {
       throw new Error(
@@ -183,154 +186,12 @@ export default async function CreateLoginPage({
         </p>
       </div>
 
-      <form
-        action={createEmployeeLogin.bind(
-          null,
-          employee.id
-        )}
-        className="space-y-8"
-      >
-        {/* Account Information */}
-        <section className="rounded-xl border bg-white p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900">
-            Account Information
-          </h2>
-
-          <div className="mt-6 space-y-5">
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-900"
-              >
-                Login Email
-              </label>
-
-              <input
-                id="email"
-                name="email"
-                type="email"
-                required
-                defaultValue={defaultEmail}
-                placeholder="employee@example.com"
-                className="mt-2 block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm shadow-sm outline-none focus:border-black focus:ring-1 focus:ring-black"
-              />
-
-              <p className="mt-1.5 text-xs text-gray-500">
-                This email address will be used to sign in.
-              </p>
-            </div>
-
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-900"
-              >
-                Temporary Password
-              </label>
-
-              <input
-                id="password"
-                name="password"
-                type="password"
-                required
-                minLength={8}
-                placeholder="Minimum 8 characters"
-                className="mt-2 block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm shadow-sm outline-none focus:border-black focus:ring-1 focus:ring-black"
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="confirm_password"
-                className="block text-sm font-medium text-gray-900"
-              >
-                Confirm Password
-              </label>
-
-              <input
-                id="confirm_password"
-                name="confirm_password"
-                type="password"
-                required
-                minLength={8}
-                placeholder="Re-enter temporary password"
-                className="mt-2 block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm shadow-sm outline-none focus:border-black focus:ring-1 focus:ring-black"
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* Role */}
-        {userCanManageRoles && (
-          <section className="rounded-xl border bg-white p-6 shadow-sm">
-            <h2 className="text-lg font-semibold text-gray-900">
-              Access Role
-            </h2>
-
-            <p className="mt-2 text-sm text-gray-600">
-              Select the role this employee will receive.
-            </p>
-
-            <div className="mt-5">
-              <label
-                htmlFor="role_id"
-                className="block text-sm font-medium text-gray-900"
-              >
-                Role
-              </label>
-
-              <select
-                id="role_id"
-                name="role_id"
-                className="mt-2 block w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm shadow-sm outline-none focus:border-black focus:ring-1 focus:ring-black"
-              >
-                <option value="">
-                  No role
-                </option>
-
-                {roles.map((role) => (
-                  <option
-                    key={role.id}
-                    value={role.id}
-                  >
-                    {role.name}
-                  </option>
-                ))}
-              </select>
-
-              <p className="mt-1.5 text-xs text-gray-500">
-                Roles control what this employee can access
-                and manage.
-              </p>
-            </div>
-          </section>
-        )}
-
-        {/* Notice */}
-        <div className="rounded-lg border border-yellow-200 bg-yellow-50 px-4 py-3">
-          <p className="text-sm text-yellow-800">
-            The employee will be able to use this account to
-            sign in to the administration system.
-          </p>
-        </div>
-
-        {/* Actions */}
-        <div className="flex items-center justify-end gap-3">
-          <Link
-            href={`/admin/employees/${employee.id}`}
-            className="rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
-          >
-            Cancel
-          </Link>
-
-          <button
-            type="submit"
-            className="rounded-lg bg-black px-5 py-2.5 text-sm font-medium text-white hover:bg-gray-800"
-          >
-            Create Login
-          </button>
-        </div>
-      </form>
+      <LoginForm
+        action={createEmployeeLogin.bind(null, employee.id)}
+        defaultEmail={defaultEmail}
+        roles={roles}
+        canManageRoles={userCanManageRoles}
+      />
     </main>
   );
 }
