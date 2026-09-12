@@ -59,12 +59,15 @@ export default async function AdminPage() {
             title="Tournaments"
             description="Manage tournaments, fixtures and results."
           />
-
+<Link
+  href="/admin/notices"
+  className="block rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-orange-200 hover:shadow-md"
+>
           <DashboardCard
             title="Notices"
             description="Publish and manage official notices."
           />
-
+</Link>
           <DashboardCard
             title="Documents"
             description="Manage IDCA documents and files."

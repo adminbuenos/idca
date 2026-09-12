@@ -1,10 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
+import BirthdayPopup from "@/components/home/birthday-popup";
 
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-white text-[#102746]">
-
+<BirthdayPopup />
       {/* ========================================================= */}
       {/* HEADER                                                    */}
       {/* ========================================================= */}
