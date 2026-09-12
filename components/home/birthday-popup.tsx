@@ -102,7 +102,7 @@ export default function BirthdayPopup() {
       className="fixed inset-0 z-[9999] overflow-y-auto bg-[#061522]/85 px-3 py-3 backdrop-blur-sm sm:px-5 sm:py-6"
       role="dialog"
       aria-modal="true"
-      aria-label="Birthday wishes for IDCA President Shri Akash Vijayvargiya"
+      aria-label="Birthday wishes for IDCA President Shri Akash Vijayvargiya Ji"
       onMouseDown={(event) => {
         if (event.target === event.currentTarget) {
           setOpen(false);
@@ -229,7 +229,7 @@ export default function BirthdayPopup() {
               <div className="absolute inset-0 flex items-end justify-center">
                 <Image
                   src="/president-akash.jpg"
-                  alt="Shri Akash Vijayvargiya, President of Indore Division Cricket Association"
+                  alt="Shri Akash Vijayvargiya Ji, President of Indore Division Cricket Association"
                   width={700}
                   height={700}
                   priority
@@ -244,7 +244,7 @@ export default function BirthdayPopup() {
                 </p>
 
                 <p className="mt-0.5 text-sm font-black text-white sm:mt-1 sm:text-lg">
-                  Shri Akash Vijayvargiya
+                  Shri Akash Vijayvargiya Ji
                 </p>
               </div>
 
@@ -293,7 +293,7 @@ export default function BirthdayPopup() {
                 {/* Name */}
                 <div className="mt-4 inline-block max-w-full rounded-xl bg-gradient-to-r from-[#a86408] to-[#d89121] px-4 py-2.5 shadow-lg sm:mt-5 sm:px-5 sm:py-3">
                   <p className="text-base font-bold text-white sm:text-xl">
-                    Shri Akash Vijayvargiya
+                    Shri Akash Vijayvargiya Ji
                   </p>
                 </div>
 
