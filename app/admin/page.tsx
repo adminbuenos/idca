@@ -1,6 +1,7 @@
 import { requireAdmin } from "@/lib/auth/authorization";
 import LogoutButton from "@/components/auth/logout-button";
 import Link from "next/link";
+
 export default async function AdminPage() {
   const { user } = await requireAdmin();
 
@@ -19,18 +20,25 @@ export default async function AdminPage() {
           </div>
 
           <div className="flex items-center gap-4">
-  <div className="text-right">
-    <p className="text-sm font-medium text-gray-900">
-      {user.email}
-    </p>
+            <div className="text-right">
+              <p className="text-sm font-medium text-gray-900">
+                {user.email}
+              </p>
 
-    <p className="text-xs text-gray-500">
-      Administrator
-    </p>
-  </div>
+              <p className="text-xs text-gray-500">
+                Administrator
+              </p>
+            </div>
 
-  <LogoutButton />
-</div>
+            <Link
+              href="/"
+              className="inline-flex items-center rounded-lg border border-[#071b2a] px-4 py-2 text-sm font-semibold text-[#071b2a] transition hover:bg-[#071b2a] hover:text-white"
+            >
+              🌐 View Public Website
+            </Link>
+
+            <LogoutButton />
+          </div>
         </div>
       </header>
 
@@ -44,12 +52,13 @@ export default async function AdminPage() {
         </p>
 
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-         <Link href="/admin/employees">
-          <DashboardCard
-            title="Employees"
-            description="Manage employees and access."
-          />
-</Link>
+          <Link href="/admin/employees">
+            <DashboardCard
+              title="Employees"
+              description="Manage employees and access."
+            />
+          </Link>
+
           <DashboardCard
             title="Clubs"
             description="Manage registered cricket clubs."
@@ -59,15 +68,17 @@ export default async function AdminPage() {
             title="Tournaments"
             description="Manage tournaments, fixtures and results."
           />
-<Link
-  href="/admin/notices"
-  className="block rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-orange-200 hover:shadow-md"
->
-          <DashboardCard
-            title="Notices"
-            description="Publish and manage official notices."
-          />
-</Link>
+
+          <Link
+            href="/admin/notices"
+            className="block rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-orange-200 hover:shadow-md"
+          >
+            <DashboardCard
+              title="Notices"
+              description="Publish and manage official notices."
+            />
+          </Link>
+
           <DashboardCard
             title="Documents"
             description="Manage IDCA documents and files."
@@ -92,9 +103,13 @@ function DashboardCard({
 }) {
   return (
     <div className="rounded-xl bg-white p-6 shadow-sm">
-      <h3 className="font-semibold text-gray-900">{title}</h3>
+      <h3 className="font-semibold text-gray-900">
+        {title}
+      </h3>
 
-      <p className="mt-2 text-sm text-gray-500">{description}</p>
+      <p className="mt-2 text-sm text-gray-500">
+        {description}
+      </p>
     </div>
   );
 }
