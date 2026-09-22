@@ -215,12 +215,12 @@ if (documentsError) {
                   </Link>
 
                   <form action={archive}>
-                    <button
-                      type="submit"
-                      className="inline-flex items-center justify-center rounded-xl bg-[#071b2a] px-4 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-black"
-                    >
-                      Archive
-                    </button>
+                     <button
+    type="submit"
+    className="inline-flex items-center justify-center rounded-xl border border-red-200 bg-red-50 px-5 py-3 text-sm font-bold text-red-700 transition hover:bg-red-100"
+  >
+    Archive Notice
+  </button>
                   </form>
                 </>
               )}
